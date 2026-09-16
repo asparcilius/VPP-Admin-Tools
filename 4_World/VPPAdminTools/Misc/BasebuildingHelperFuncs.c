@@ -57,7 +57,11 @@ class BasebuildingHelperFuncs
 			if (fence.GetCombinationLock())
 			{
 				GetGame().GameScript.CallFunction(fence, "SetBaseLockValues", NULL, NULL);
+				#ifndef DAYZ_1_29
+				fence.GetCombinationLock().UnlockOnServer(NULL, fence); // 1.30+: UnlockServer was renamed to UnlockOnServer
+				#else
 				fence.GetCombinationLock().UnlockServer(NULL, fence);
+				#endif
 				#ifdef VPPADMINTOOLS_DEBUG
 				Print("[BasebuildingHelperFuncs] Combo for Fence: " + fence);
 				#endif
